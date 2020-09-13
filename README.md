@@ -1,4 +1,4 @@
-# Fastcampus - live online project with Teddy
+# Fastcampus - Data Analysis Project with Teddy
 
 ## To do
 1. **Setting** / github, Google Colaboratory, Source tree
