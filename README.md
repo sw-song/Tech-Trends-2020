@@ -1,5 +1,4 @@
-# Intro
-Fastcampus - live online project
+# Fastcampus - live online project with Teddy
 
 ## To do
 1. **Setting** / github, Google Colaboratory, Source tree
