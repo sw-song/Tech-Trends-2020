@@ -1,4 +1,4 @@
-# Fastcampus - Data Analysis Project with Teddy
+# Tech - Online Courses Analysis
 
 ## To do
 1. **Setting** / github, Google Colaboratory, Source tree
