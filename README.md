@@ -1,4 +1,5 @@
-# Tech - Online Courses Analysis
+# Tech Online Courses Analysis
+Python Data Analysis for Popular online courses about programming and data science
 
 ## To do
 1. **Setting** / github, Google Colaboratory, Source tree
