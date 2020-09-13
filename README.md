@@ -8,4 +8,4 @@ Fastcampus - live online project
 
 
 ### Project
-- What are the popular courses in Coursera?
+- What are the popular courses in Coursera? : [week 1-2][https://github.com/seungwon0601/fastcampus_lop/blob/master/coursera.ipynb]
