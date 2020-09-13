@@ -7,4 +7,4 @@
 
 
 ## Project
-- week 1 : [What are the popular courses in Coursera?](https://github.com/seungwon0601/fastcampus_lop/blob/master/coursera.ipynb)
+- week 1 : [What are the popular courses in Coursera?](https://github.com/seungwon0601/fastcampus_lop/blob/master/week1_coursera.ipynb)
