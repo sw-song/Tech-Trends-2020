@@ -4,8 +4,8 @@ Python Data Analysis for Popular online courses about programming and data scien
 ## To do
 1. **Setting** / github, Google Colaboratory, Source tree
 2. **Pandas & DataFrame** / Data Selection, pre-processing
-3. **Beautifulsoup & Requests** / Data Scrapping
-4. **Selenium & Beautifulsoup** / Website Crawling
+3. **Beautifulsoup & Requests** / Data Scrapping (get html)
+4. **Selenium** / Data Scrapping (drive.get)
 5. **Seaborn & Matplotlib** / Data Visualization, Statistics : Graphs and Charts
 
 
