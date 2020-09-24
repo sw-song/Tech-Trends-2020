@@ -1,5 +1,5 @@
-# Tech Online Courses Analysis
-Python Data Analysis for Popular online courses about programming and data science
+# Tech Trends 2020
+Python/Pandas Data Analysis on "Most In-Demand Tech Skills for Programmers or Data Scientists"
 
 ## To do
 1. **Setting** / github, Google Colaboratory, Source tree
