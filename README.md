@@ -15,3 +15,4 @@ Python/Pandas Data Analysis on "Most In-Demand Tech Skills for Programmers or Da
 - Beautifulsoup & Requests : [What are the most popular books in Yes24?](https://github.com/seungwon0601/Tech_Online_Courses_Analysis/blob/master/Most_Popular_Books_in_Yes24.ipynb)
 - Selenium : [What are the most popular courses in Udemy?](https://github.com/seungwon0601/Tech_Online_Courses_Analysis/blob/master/udemy_courses_crawler.ipynb)
 - Selenium : [What are the Most Popular Repositories in Github?](https://github.com/seungwon0601/Tech_Online_Courses_Analysis/blob/master/4.%20Selenium/Most_Popular_Repositories_In_Github.ipynb)
+- Selenium & PostgreSQL : [Save Udemy course information to database - Python with postgreSQL]
