@@ -7,6 +7,7 @@ Python/Pandas Data Analysis on "Most In-Demand Tech Skills for Programmers or Da
 3. **Beautifulsoup & Requests** / Data Scrapping (get html)
 4. **Selenium** / Data Scraping (drive.get)
 5. **Selenium & PostgreSQL** / Data Scraping and Save to database - Associate Python file with postgresql
+6. **Selenium & PostgreSQL & DataStudio** / server db to Google DataStudio *with DBeaver
 6. **Seaborn & Matplotlib** / Data Visualization, Statistics : Graphs and Charts
 
 
