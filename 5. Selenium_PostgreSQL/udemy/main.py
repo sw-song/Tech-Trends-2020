@@ -2,15 +2,32 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+#from selenium.webdriver.chrome.options import Options
 import pandas as pd
 import time
 import sqlalchemy
 from sqlalchemy import create_engine
+from bs4 import BeautifulSoup
 import psycopg2
+import lxml
+import requests
+import os
+
+#option = Options()
+# 알림창 끄기
+option = webdriver.ChromeOptions()
+option.add_experimental_option("prefs", {
+    "profile.default_content_setting_values.notifications": 2
+})
+
+#option.add_argument('headless')
+#option.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36")
+option.add_argument('disable-gpu')
+option.add_argument('disable-infobars')
 
 def StartScrap(keyword, pages):
     global drive
-    drive = webdriver.Chrome(executable_path=r'/Users/swsong/PycharmProjects/scrapper/chromedriver')
+    drive = webdriver.Chrome(options=option, executable_path=r'/Users/swsong/PycharmProjects/scrapper/chromedriver')
     main_link = 'https://www.udemy.com'
     drive.get(main_link)
     drive.implicitly_wait(10)
@@ -30,46 +47,67 @@ def ScrapLinks(keyword, pages):
         print('강의 링크를 수집중입니다. (현재페이지에서 {}개 링크 수집, 진행률 : {}/{})'.format(len(course_links),page,pages-1))
         for i in range(len(course_links)):
             links.append(course_links[i].get_attribute('href'))
-    makeDf()
+    print('강의 링크를 모두 수집하여 크롬 드라이브를 종료합니다.')
+    drive.quit()
+    list_df = pd.DataFrame(links, columns=['list'])
+    list_df.to_csv('links', index=False)
+    return makeDf()
 
-def makeDf():
+def makeDf(links):
     titles = []
     subtitles = []
     stars = []
     ratings = []
     enrolls = []
+    link_list = []
     i = 0
-    for course_link in links:
-        drive.get(course_link)
-        wait = WebDriverWait(drive, 10)
-        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".udlite-text-md.clp-lead__headline")))
-        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".styles--rating-wrapper--5a0Tr")))
-        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div[data-purpose="enrollment"]')))
+    links =  pd.read_csv('{}'.format(links))
+    for course_link in links['list']:
+        html = requests.get(course_link)
+        soup = BeautifulSoup(html.text, 'lxml')
+        try:
+            print('title :',soup.select_one('.udlite-heading-xl.clp-lead__title').get_text())
+            titles.append(soup.select_one('.udlite-heading-xl.clp-lead__title').get_text())
+            print('subtitle :',soup.select_one('.udlite-text-md.clp-lead__headline').get_text())
+            subtitles.append(soup.select_one('.udlite-text-md.clp-lead__headline').get_text())
+            print('enroll :',soup.select_one('div[data-purpose="enrollment"]').get_text())
+            enrolls.append(soup.select_one('div[data-purpose="enrollment"]').get_text())
+            print('star :',soup.select_one('span.udlite-heading-sm.star-rating--rating-number--3lVe8').get_text())
+            stars.append(soup.select_one('span.udlite-heading-sm.star-rating--rating-number--3lVe8').get_text())
+            print('rating :',soup.select_one('span.star-rating--star-wrapper--2eczq.star-rating--dark-background--Rqadv').next_sibling)
+            ratings.append(soup.select_one('span.star-rating--star-wrapper--2eczq.star-rating--dark-background--Rqadv').next_sibling)
+            link_list.append(course_link)
+            global udemy_df
+            udemy_df = pd.DataFrame(list(zip(titles, subtitles, enrolls, stars, ratings, link_list)), columns= \
+                ['Title', 'Summary', 'Enrollment', 'Stars', 'Rating', 'Link'])
+            print('데이터 프레임을 완성했습니다. csv파일에 추가합니다.')
+            udemy_df.to_csv('udemy_df_temp.csv', index=False, mode='w')
+            print('파일을 수정했습니다.')
 
-        titles.append(drive.find_element_by_css_selector('.udlite-heading-xl.clp-lead__title').text)
-        subtitles.append(drive.find_element_by_css_selector('.udlite-text-md.clp-lead__headline').text)
-        temp_, star_, rating_ = drive.find_element_by_css_selector('.styles--rating-wrapper--5a0Tr').text.split('\n')
-        stars.append(star_)
-        ratings.append(rating_)
-        enrolls.append(drive.find_element_by_css_selector('div[data-purpose="enrollment"]').text)
+        except Exception as e:
+            print(course_link)
+            print('수집을 실패했습니다. - ', e)
+            continue
         i += 1
         print('데이터를 생성하고 있습니다.(진행률 : {}/{})'.format(i,len(links)))
-    global udemy_df
-    udemy_df = pd.DataFrame(list(zip(titles,subtitles,enrolls,stars,ratings,links)), columns = \
-        ['Title','Summary','Enrollment','Stars','Rating','Link'])
+
+
     # udemy_df 정렬
 
     preprocessing()
 
-def preprocessing():
+def preprocessing(keyword):
+    udemy_df = pd.read_csv(keyword)
     print('문자 타입 전처리를 시작합니다.')
-    udemy_df['Rating'] = [int(rating[1:-8].strip().replace(',','')) for rating in udemy_df['Rating']]
-    udemy_df['Enrollment'] = [int(enroll[:-9].replace(',','')) for enroll in udemy_df['Enrollment']]
+    udemy_df['Title'] = [str(title.replace('\n','')) for title in udemy_df['Title']]
+    udemy_df['Summary'] = [str(summary.replace('\n','')) for summary in udemy_df['Summary']]
+    udemy_df['Enrollment'] = [int(enroll[:-10].replace(',','').replace('\n','')) for enroll in udemy_df['Enrollment']]
     udemy_df['Stars'] = [float(star) for star in udemy_df['Stars']]
+    udemy_df['Rating'] = [int(rating[2:-8].strip().replace(',','')) for rating in udemy_df['Rating']]
     print('문자 타입 전처리가 완료되었습니다.')
-    saveDf()
+    saveDf(udemy_df)
 
-def saveDf():
+def saveDf(udemy_df):
     engine = create_engine("postgresql://postgres:0000@localhost:5433/postgres")
     engine.execute("DROP TABLE IF EXISTS public.udemy_tech;")
     udemy_df.to_sql(name='udemy_tech',
@@ -77,19 +115,21 @@ def saveDf():
                     schema = 'public',
                     if_exists= 'replace',
                     dtype = {
-                        'Title': sqlalchemy.types.TEXT(),
-                        'Summary': sqlalchemy.types.TEXT(),
-                        'Enrollment': sqlalchemy.types.INTEGER(),
-                        'Stars': sqlalchemy.types.FLOAT(),
-                        'Rating': sqlalchemy.types.INTEGER(),
-                        'Link': sqlalchemy.types.Text()
+                        'title': sqlalchemy.types.TEXT(),
+                        'summary': sqlalchemy.types.TEXT(),
+                        'enrollment': sqlalchemy.types.INTEGER(),
+                        'stars': sqlalchemy.types.FLOAT(),
+                        'rating': sqlalchemy.types.INTEGER(),
+                        'link': sqlalchemy.types.Text()
                     })
     print('postgreSQL(:5433) 서버에 데이터 전송을 완료하였습니다.')
-    drive.quit()
 
 if __name__ == '__main__':
-    keyword = input('검색할 키워드를 입력하세요 : ')
-    pages = int(input('검색할 페이지 수를 입력하세요 : '))
-    StartScrap(keyword, pages)
-
+    #keyword = input('검색할 키워드를 입력하세요 : ')
+    #pages = int(input('검색할 페이지 수를 입력하세요 : '))
+    #StartScrap(keyword, pages)
+    #file = input('탐색할 링크 파일 경로를 입력하세요 : ')
+    #makeDf(file)
+    df = input('정제할 데이터 경로를 입력하세요 : ')
+    preprocessing(df)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
