@@ -12,7 +12,7 @@ Python/Pandas Data Analysis on "Most In-Demand Tech Skills for Programmers or Da
 
 
 ## Project
-- Pandas & DataFrame : [What are the most popular courses in Coursera?](https://github.com/seungwon0601/Tech_Online_Courses_Analysis/blob/master/Most_Popular_Couses_in_coursera.ipynb)
+- Pandas & DataFrame : [What are the most popular courses in Coursera?](https://github.com/sw-song/Tech-Trends-2020/blob/master/2.%20Pandas_and_DataFrame/Analysis_Tech_Trends_with_Github.ipynb)
 - Pandas & DataFrame : [Analysis Tech Trends with Github Repositories](https://github.com/seungwon0601/Tech_Online_Courses_Analysis/blob/master/Analysis_Tech_Trends_with_Github.ipynb)
 - Beautifulsoup & Requests : [What are the most popular books in Yes24?](https://github.com/seungwon0601/Tech_Online_Courses_Analysis/blob/master/Most_Popular_Books_in_Yes24.ipynb)
 - Selenium : [What are the most popular courses in Udemy?](https://github.com/seungwon0601/Tech_Online_Courses_Analysis/blob/master/udemy_courses_crawler.ipynb)
