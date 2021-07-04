@@ -18,4 +18,4 @@ Python/Pandas Data Analysis on "Most In-Demand Tech Skills for Programmers or Da
 - Selenium : [What are the most popular courses in Udemy?](https://github.com/sw-song/Tech-Trends-2020/blob/master/4.%20Selenium/Most_Popular_Courses_In_Udemy.ipynb)
 - Selenium : [What are the Most Popular Repositories in Github?](https://github.com/seungwon0601/Tech_Online_Courses_Analysis/blob/master/4.%20Selenium/Most_Popular_Repositories_In_Github.ipynb)
 - Selenium & PostgreSQL : [Save Udemy course information to database - Python with postgreSQL](https://github.com/seungwon0601/Tech-Trends-2020/blob/master/5.%20Selenium_PostgreSQL/udemy/main.py)
-- Selenium & PostgreSQL & DataStudio : [Udemy Course Information - Interactive Visualization](https://datastudio.google.com/s/p7NyTQ278uQ)
+- Selenium & PostgreSQL & DataStudio : [Udemy Course Information - Interactive Visualization](https://datastudio.google.com/reporting/f6f9e305-37d0-4b3f-bebc-f2a2cb36b456)
