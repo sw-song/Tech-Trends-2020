@@ -3,7 +3,7 @@ Python/Pandas Data Analysis on "Most In-Demand Tech Skills for Programmers or Da
 
 > result preview
 
-<img width="40%" src='https://github.com/sw-song/Tech-Trends-2020/blob/master/preview.gif'>
+<img width="40%" src='https://github.com/sw-song/Tech-Trends-2020/blob/master/preview.png'>
 
 ## To do
 1. **Setting** / github, Google Colaboratory, Source tree
