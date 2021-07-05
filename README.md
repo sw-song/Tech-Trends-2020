@@ -1,6 +1,10 @@
 # Tech Trends 2020
 Python/Pandas Data Analysis on "Most In-Demand Tech Skills for Programmers or Data Scientists"
 
+> result preview
+
+<img width="40%" src='https://github.com/sw-song/Tech-Trends-2020/blob/master/preview.gif'>
+
 ## To do
 1. **Setting** / github, Google Colaboratory, Source tree
 2. **Pandas & DataFrame** / Data Selection, pre-processing
