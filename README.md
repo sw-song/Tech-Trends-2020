@@ -4,6 +4,7 @@ Python/Pandas Data Analysis on "Most In-Demand Tech Skills for Programmers or Da
 > result preview
 - data scraping (Google Spreadsheet)
 <img width="45%" src='https://github.com/sw-song/Tech-Trends-2020/blob/master/make_dataset.gif'>
+
 - data visualization (DataStudio)
 <img width="45%" src='https://github.com/sw-song/Tech-Trends-2020/blob/master/udemy_light.gif'>
 <img width="45%" src='https://github.com/sw-song/Tech-Trends-2020/blob/master/udemy_dark.gif'>
